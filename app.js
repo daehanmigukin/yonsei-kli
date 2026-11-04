@@ -12,7 +12,8 @@ const main=$("#main"),chips=$("#chips"),q=$("#q"),sel=$("#lang"),quizBtn=$("#qui
 const hl=s=>s.replace(/\*\*(.+?)\*\*/g,"<mark>$1</mark>");
 const esc=s=>s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 const store={get:k=>{try{return localStorage.getItem(k)}catch(e){return null}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}}};
-let lang="en",cur=1,allOpen=true,D=[],t=UI.en;
+const bookOf=n=>n<=10?1:2;
+let lang="en",cur=11,allOpen=true,D=[],t=UI.en;
 
 function grammar(g,label){
   return `<details class="gcard" ${allOpen?"open":""}><summary>${label?`<span class="res-ch">${label}</span>`:""}<span class="gform">${g.f}</span><span class="ggloss en">${g.en}</span></summary>
@@ -52,7 +53,9 @@ function search(term){
    (!gs.length&&!vs.length?`<p class="empty">${t.none}</p>`:"");
 }
 function renderChips(){
-  chips.innerHTML=D.map(c=>`<button class="chip" role="tab" data-n="${c.n}" aria-selected="${c.n===cur&&!q.value}"><b>${c.n}과</b> <span lang="ko">${c.t}</span></button>`).join("");
+  const b=bookOf(cur);
+  document.querySelectorAll(".book").forEach(x=>x.setAttribute("aria-pressed",+x.dataset.b===b));
+  chips.innerHTML=D.filter(c=>bookOf(c.n)===b).map(c=>`<button class="chip" role="tab" data-n="${c.n}" aria-selected="${c.n===cur&&!q.value}"><b>${c.n}과</b> <span lang="ko">${c.t}</span></button>`).join("");
 }
 function render(){
   const term=q.value.trim();renderChips();
@@ -82,6 +85,7 @@ function setLang(l){
   ensure(l,()=>{lang=l;t=UI[l];D=GUIDE[l];store.set("lang",l);applyUI();render()});
 }
 
+document.getElementById("books").addEventListener("click",e=>{const x=e.target.closest(".book");if(!x)return;const b=+x.dataset.b;if(bookOf(cur)!==b||q.value)go(b===1?1:11,true)});
 chips.addEventListener("click",e=>{const b=e.target.closest(".chip");if(b)go(+b.dataset.n,true)});
 let tm;q.addEventListener("input",()=>{clearTimeout(tm);tm=setTimeout(()=>{if(q.value.trim())render();else go(cur)},150)});
 sel.addEventListener("change",()=>setLang(sel.value));
@@ -91,7 +95,7 @@ expBtn.addEventListener("click",()=>{allOpen=!allOpen;document.querySelectorAll(
 
 // starting chapter: #ch3 in the URL, else last visited
 const m=location.hash.match(/^#ch(\d+)$/);
-if(m)cur=+m[1];else{const s=+store.get("ch");if(s>=1&&s<=10)cur=s}
+if(m&&+m[1]>=1&&+m[1]<=20)cur=+m[1];else{const s=+store.get("ch");if(s>=1&&s<=20)cur=s}
 // starting language: ?lang=ja in the URL, else last used, else browser language
 let start=null;
 try{start=new URLSearchParams(location.search).get("lang")}catch(e){}

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="4급 Korean grammar and vocabulary study guide in English, Japanese, Chinese and Turkish.">
-<title>4급 1권 Study Guide</title>
+<title>4급 Study Guide</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&family=IBM+Plex+Sans+KR:wght@400;500;600&family=Noto+Sans+JP:wght@400;500&family=Noto+Sans+SC:wght@400;500&display=swap">
@@ -41,7 +41,12 @@ body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15p
 .toggle{font:inherit;font-size:.85rem;font-weight:500;padding:8px 12px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;white-space:nowrap}
 .toggle[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--surface)}
 .toggle:focus-visible,.chip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.navrow{display:flex;gap:8px;align-items:center;min-width:0}
+.books{display:flex;flex:0 0 auto;border:1px solid var(--line);border-radius:999px;padding:2px;background:var(--surface)}
+.book{font:inherit;font-size:.8rem;font-weight:600;padding:5px 10px;border:0;border-radius:999px;background:transparent;color:var(--muted);cursor:pointer;font-variant-numeric:tabular-nums}
+.book[aria-pressed="true"]{background:var(--accent);color:var(--surface)}
+.book:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.chips{flex:1 1 auto;min-width:0;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
 .chips::-webkit-scrollbar{display:none}
 .chip{flex:0 0 auto;font:inherit;font-size:.82rem;font-weight:500;padding:6px 11px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;font-variant-numeric:tabular-nums}
 .chip b{color:var(--ink);font-weight:600}
@@ -111,14 +116,14 @@ html:lang(zh-CN) .en,html:lang(zh-CN) .core,html:lang(zh-CN) .rules,html:lang(zh
 <body>
 <header class="bar">
   <div class="wrap">
-    <div class="brand"><h1>4급 1권 Study Guide</h1><span id="sub">문법 · 대화 어휘 · 확장 어휘</span></div>
+    <div class="brand"><h1>4급 Study Guide</h1><span id="sub">문법 · 대화 어휘 · 확장 어휘</span></div>
     <div class="tools">
       <div class="search"><input id="q" type="search" placeholder="Search all chapters: 도록, 저렴하다, fluent…" aria-label="Search all chapters"></div>
       <select class="lang" id="lang" aria-label="Language"><option value="en">English</option><option value="ja">日本語</option><option value="zh">中文</option><option value="tr">Türkçe</option></select>
       <button class="toggle" id="quiz" aria-pressed="false">Hide English</button>
       <button class="toggle" id="expand">Collapse grammar</button>
     </div>
-    <nav class="chips" id="chips" role="tablist" aria-label="Chapters"></nav>
+    <div class="navrow"><div class="books" id="books" role="group" aria-label="Book"><button class="book" data-b="1" aria-pressed="true">4-1</button><button class="book" data-b="2" aria-pressed="false">4-2</button></div><nav class="chips" id="chips" role="tablist" aria-label="Chapters"></nav></div>
   </div>
 </header>
 <main class="wrap" id="main"></main>

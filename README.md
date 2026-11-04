@@ -1,6 +1,6 @@
 # 4급 1권 Study Guide
 
-Grammar explanations, vocabulary usage notes and example sentences for the 10 chapters of the 4급 (book 1) Korean textbook. The explanations are available in English, 日本語, 中文 (简体) and Türkçe.
+Grammar explanations, vocabulary usage notes and example sentences for all 20 chapters of the 4급 Korean textbook (4-1: chapters 1–10, 4-2: chapters 11–20). The explanations are available in English, 日本語, 中文 (简体) and Türkçe.
 
 ## Files
 
@@ -20,7 +20,7 @@ It's a plain static site with no build step. Opening `index.html` directly in a 
 ## Sharing links
 
 - Open in a specific language: add `?lang=ja`, `?lang=zh`, `?lang=tr` or `?lang=en`
-- Jump to a chapter: add `#ch3` (chapters 1–10)
+- Jump to a chapter: add `#ch3` (chapters 1–20)
 - Both: `index.html?lang=tr#ch7`
 
 Without `?lang`, the page uses the visitor's last choice, otherwise their browser language, otherwise English.
